@@ -2,10 +2,10 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import connectDB from "./src/DB/index.js";
+import connectDB from "./DB/index.js";
 import dns from "dns";
-import authRouter from "./src/Routes/auth.js";
-import userRouter from "./src/Routes/user.js";
+import authRouter from "./Routes/auth.js";
+import userRouter from "./Routes/user.js";
 import cookieParser from "cookie-parser";
 import path from 'path'
 import fs from 'fs'
