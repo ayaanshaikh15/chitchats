@@ -2,13 +2,14 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import connectDB from "./DB/index.js";
+import connectDB from "./lib/index.js";
 import dns from "dns";
 import authRouter from "./Routes/auth.js";
 import userRouter from "./Routes/user.js";
 import cookieParser from "cookie-parser";
 import path from 'path'
 import fs from 'fs'
+import job from "./lib/cron.js";
 dotenv.config();
 const app = express();
 
@@ -33,4 +34,7 @@ if(fs.existsSync(publicDir)){
 app.listen(PORT, () => {
   connectDB();
   console.log(`Server is running on port ${PORT}`);
+  if(process.env.NODE_ENV === "production") {
+    job.start()
+  }
 });
