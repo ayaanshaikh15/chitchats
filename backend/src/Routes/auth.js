@@ -1,9 +1,6 @@
-import express from "express";
-import bcrypt from "bcryptjs";
-import jwt from "jsonwebtoken";
-import User from "../Models/userModel.js"
+import express from 'express'
 import { protect } from "../Middleware/auth.js";
-import { generateToken,signup,login,logout,updateProfile,getCurrentUser } from "../Controllers/index.js";
+import { generateToken,signup,login,logout,updateProfile,getCurrentUser } from "../Controllers/auth.controllers.js";
 const router = express.Router();
 
 // ======================

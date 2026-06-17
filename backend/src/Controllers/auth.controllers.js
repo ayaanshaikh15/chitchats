@@ -1,3 +1,7 @@
+import express from "express";
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+import User from "../Models/userModel.js"
 export const generateToken = (userId) => {
   return jwt.sign(
     { userId },

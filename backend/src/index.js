@@ -1,17 +1,19 @@
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import connectDB from "./lib/index.js";
+import connectDB from "./lib/db.js";
 import dns from "dns";
 import authRouter from "./Routes/auth.js";
-import userRouter from "./Routes/user.js";
+import msgRouter from "./Routes/msg.js";
 import cookieParser from "cookie-parser";
 import path from 'path'
 import fs from 'fs'
 import job from "./lib/cron.js";
+import {app,server} from './lib/socket.js'
 dotenv.config();
-const app = express();
+
 
 app.use(express.json());
 app.use(cookieParser());
@@ -21,7 +23,7 @@ const FRONTEND_URL=process.env.FRONTEND_URL;
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
 app.use(cors({origin: FRONTEND_URL, credentials: true}));
 app.use("/api/auth", authRouter);
-app.use("/api/user",userRouter);
+app.use("/api/messages",msgRouter);
 
 const publicDir = path.join(process.cwd(),'public')
 
@@ -31,7 +33,8 @@ if(fs.existsSync(publicDir)){
     res.sendFile(path.join(publicDir,'index.html'),(err)=>next(err))
   })
 }
-app.listen(PORT, () => {
+
+server.listen(PORT, () => {
   connectDB();
   console.log(`Server is running on port ${PORT}`);
   if(process.env.NODE_ENV === "production") {
