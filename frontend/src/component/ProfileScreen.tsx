@@ -3,7 +3,7 @@ import { useAuth } from "../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
 export default function ProfileScreen() {
-  const { user, updateUser } = useAuth();
+  const { user, updateUser, logout } = useAuth();
   const navigate = useNavigate();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -16,6 +16,7 @@ export default function ProfileScreen() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [showConfirm, setShowConfirm] = useState(false);
+  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const f = e.target.files?.[0];
@@ -142,6 +143,16 @@ export default function ProfileScreen() {
           <div className="flex gap-3 pt-2">
             <button
               type="button"
+              onClick={() => setShowLogoutConfirm(true)}
+              className="bg-zinc-800 hover:bg-red-600 text-zinc-400 hover:text-white rounded-xl p-2.5 transition cursor-pointer"
+              title="Logout"
+            >
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+            </button>
+            <button
+              type="button"
               onClick={() => navigate("/")}
               className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl py-2.5 text-sm font-medium transition cursor-pointer"
             >
@@ -158,6 +169,39 @@ export default function ProfileScreen() {
         </form>
       </div>
     </div>
+
+    {/* Logout confirmation modal */}
+    {showLogoutConfirm && (
+      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full max-w-sm mx-4 shadow-2xl">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
+              <svg className="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="text-zinc-100 font-semibold">Logout</h3>
+              <p className="text-zinc-400 text-sm">Are you sure you want to logout?</p>
+            </div>
+          </div>
+          <div className="flex gap-3 mt-5">
+            <button
+              onClick={() => setShowLogoutConfirm(false)}
+              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl py-2.5 text-sm font-medium transition cursor-pointer"
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() => { logout(); }}
+              className="flex-1 bg-red-600 hover:bg-red-700 text-white rounded-xl py-2.5 text-sm font-medium transition cursor-pointer"
+            >
+              Logout
+            </button>
+          </div>
+        </div>
+      </div>
+    )}
 
     {/* Save confirmation modal */}
     {showConfirm && (

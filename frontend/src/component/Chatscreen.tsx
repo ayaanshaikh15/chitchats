@@ -27,7 +27,7 @@ interface Message {
 }
 
 export default function Chatscreen() {
-  const { user: me, logout } = useAuth();
+  const { user: me } = useAuth();
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
   const [tab, setTab] = useState<"conversations" | "users">("conversations");
@@ -40,7 +40,6 @@ export default function Chatscreen() {
   const [filePreview, setFilePreview] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
-  const [showLogoutConfirm, setShowLogoutConfirm] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const socketRef = useRef<Socket | null>(null);
@@ -152,14 +151,16 @@ export default function Chatscreen() {
 
   return (
     <>
-    <div className="min-h-screen bg-black flex items-center justify-center p-4">
-      <div className="w-full max-w-5xl h-[85vh] bg-zinc-900 rounded-2xl border border-zinc-800 shadow-2xl shadow-blue-500/5 flex overflow-hidden">
+    <div className="min-h-screen bg-black flex items-center justify-center p-0 md:p-4">
+      <div className="w-full max-w-5xl h-dvh md:h-[85vh] bg-zinc-900 md:rounded-2xl border-zinc-800 md:border shadow-2xl shadow-blue-500/5 flex overflow-hidden">
         {/* Sidebar */}
-        <div className="w-80 border-r border-zinc-800 flex flex-col shrink-0">
+        <div className={`${selectedUser ? "hidden md:flex" : "flex"} md:flex w-full md:w-80 border-r border-zinc-800 flex-col shrink-0`}>
           {/* Sidebar header */}
           <div className="p-4 border-b border-zinc-800">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-lg font-semibold text-zinc-100">Chats</h2>
+                 {theme === "dark"?<img src="/favicon.png" className="w-7 h-7" />:<img src="/favicondark.png" className="w-7 h-7" />}
+                
+             
               <div className="flex items-center gap-2">
                 {me?.role === "admin" && (
                   <button onClick={() => navigate("/admin")} className="text-zinc-500 hover:text-yellow-400 transition cursor-pointer" title="Admin Dashboard">
@@ -184,11 +185,6 @@ export default function Chatscreen() {
                 <button onClick={() => navigate("/profile")} className="text-zinc-500 hover:text-blue-400 transition cursor-pointer" title="Edit profile">
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                  </svg>
-                </button>
-                <button onClick={() => setShowLogoutConfirm(true)} className="text-zinc-500 hover:text-red-400 transition cursor-pointer" title="Logout">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
                   </svg>
                 </button>
               </div>
@@ -277,11 +273,16 @@ export default function Chatscreen() {
         </div>
 
         {/* Chat panel */}
-        <div className="flex-1 flex flex-col">
+        <div className={`${selectedUser ? "flex" : "hidden md:flex"} flex-1 flex-col md:flex`}>
           {selectedUser ? (
             <>
               {/* Chat header */}
-              <div className="flex items-center gap-3 px-5 py-3 border-b border-zinc-800">
+              <div className="flex items-center gap-3 px-4 md:px-5 py-3 border-b border-zinc-800">
+                <button onClick={() => setSelectedUser(null)} className="md:hidden text-zinc-400 hover:text-white transition cursor-pointer">
+                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                  </svg>
+                </button>
                 <div className="w-10 h-10 rounded-full bg-zinc-700 flex items-center justify-center shrink-0 overflow-hidden">
                   {selectedUser.profilePic ? (
                     <img src={selectedUser.profilePic} alt="" className="w-full h-full object-cover" />
@@ -298,7 +299,7 @@ export default function Chatscreen() {
               </div>
 
               {/* Messages */}
-              <div className="flex-1 overflow-y-auto p-5 space-y-3">
+              <div className="flex-1 overflow-y-auto p-4 md:p-5 space-y-3">
                 {messages.map((msg) => {
                   const isMine = msg.senderId === me?.id;
                   return (
@@ -326,7 +327,7 @@ export default function Chatscreen() {
               </div>
 
               {/* Input */}
-              <div className="p-4 border-t border-zinc-800">
+              <div className="p-3 md:p-4 border-t border-zinc-800">
                 {filePreview && (
                   <div className="mb-2 relative inline-block">
                     {file?.type.startsWith("video/") ? (
@@ -389,7 +390,7 @@ export default function Chatscreen() {
               </div>
             </>
           ) : (
-            <div className="flex-1 flex items-center justify-center flex-col gap-3 text-zinc-500">
+            <div className="hidden md:flex flex-1 items-center justify-center flex-col gap-3 text-zinc-500">
               <svg className="w-16 h-16" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
               </svg>
@@ -399,39 +400,6 @@ export default function Chatscreen() {
         </div>
       </div>
     </div>
-
-    {/* Logout confirmation modal */}
-    {showLogoutConfirm && (
-      <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full max-w-sm mx-4 shadow-2xl">
-          <div className="flex items-center gap-3 mb-3">
-            <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
-              <svg className="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
-              </svg>
-            </div>
-            <div>
-              <h3 className="text-zinc-100 font-semibold">Logout</h3>
-              <p className="text-zinc-400 text-sm">Are you sure you want to logout?</p>
-            </div>
-          </div>
-          <div className="flex gap-3 mt-5">
-            <button
-              onClick={() => setShowLogoutConfirm(false)}
-              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl py-2.5 text-sm font-medium transition cursor-pointer"
-            >
-              Cancel
-            </button>
-            <button
-              onClick={() => { logout(); setShowLogoutConfirm(false); }}
-              className="flex-1 bg-red-600 hover:bg-red-700 text-white rounded-xl py-2.5 text-sm font-medium transition cursor-pointer"
-            >
-              Logout
-            </button>
-          </div>
-        </div>
-      </div>
-    )}
   </>
   );
 }

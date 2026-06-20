@@ -54,7 +54,7 @@ export default function SignupScreen() {
       <div className="absolute bottom-1/4 -right-32 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="w-full max-w-md relative">
-        <div className="bg-zinc-900/80 backdrop-blur-xl rounded-3xl p-8 border border-zinc-800 shadow-2xl shadow-blue-500/10">
+        <div className="bg-zinc-900/80 backdrop-blur-xl rounded-2xl md:rounded-3xl p-6 md:p-8 border border-zinc-800 shadow-2xl shadow-blue-500/10">
           <div className="text-center mb-8">
             <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-blue-600/25">
               <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
