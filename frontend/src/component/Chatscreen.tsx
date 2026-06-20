@@ -54,8 +54,13 @@ export default function Chatscreen() {
     const sock = getSocket(me.id);
     socketRef.current = sock;
 
-    setOnlineUsers(getOnlineUsersSnapshot());
-    const onOnlineUsers = (ids: string[]) => setOnlineUsers(ids);
+    const snapshot = getOnlineUsersSnapshot();
+    console.log("[Chatscreen] Effect 1 | me.id:", me.id, "snapshot:", snapshot);
+    setOnlineUsers(snapshot);
+    const onOnlineUsers = (ids: string[]) => {
+      console.log("[Chatscreen] getOnlineUsers event:", ids);
+      setOnlineUsers(ids);
+    };
     sock.on("getOnlineUsers", onOnlineUsers);
     sock.on("messagesRead", ({ readBy }: { readBy: string }) => {
       setConversations((prev) =>
