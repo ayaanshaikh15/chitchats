@@ -29,6 +29,15 @@ export const getConversationsForSidebar = async (req, res) => {
         $group: {
           _id: { $cond: [{ $eq: ["$senderId", new mongoose.Types.ObjectId(loggedInUserId)] }, "$receiverId", "$senderId"] },
           lastMessageAt: { $max: "$createdAt" },
+          unreadCount: {
+            $sum: {
+              $cond: [
+                { $and: [{ $eq: ["$receiverId", new mongoose.Types.ObjectId(loggedInUserId)] }, { $eq: ["$read", false] }] },
+                1,
+                0,
+              ],
+            },
+          },
         },
       },
       { $sort: { lastMessageAt: -1 } },
@@ -36,7 +45,7 @@ export const getConversationsForSidebar = async (req, res) => {
       {
         $replaceRoot: {
           newRoot: {
-            $mergeObjects: [{ $first: "$user" }, { lastMessageAt: "$lastMessageAt" }],
+            $mergeObjects: [{ $first: "$user" }, { lastMessageAt: "$lastMessageAt" }, { unreadCount: "$unreadCount" }],
           },
         },
       },
@@ -55,6 +64,11 @@ export const getMessage = async (req, res) => {
     try{
       const { id: userToChatId } = req.params;
     const myId = req.user.userId;
+
+    await Message.updateMany(
+      { senderId: userToChatId, receiverId: myId, read: false },
+      { $set: { read: true } }
+    );
 
     const messages = await Message.find({
       $or: [

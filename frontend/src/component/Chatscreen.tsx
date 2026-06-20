@@ -14,6 +14,7 @@ interface User {
 
 interface Conversation extends User {
   lastMessageAt: string;
+  unreadCount?: number;
 }
 
 interface Message {
@@ -63,6 +64,14 @@ export default function Chatscreen() {
           (msg.senderId === me.id && msg.receiverId === selectedUser._id))
       ) {
         setMessages((prev) => [...prev, msg]);
+      } else {
+        setConversations((prev) =>
+          prev.map((c) =>
+            c._id === msg.senderId || c._id === msg.receiverId
+              ? { ...c, unreadCount: (c.unreadCount || 0) + 1 }
+              : c
+          )
+        );
       }
     });
 
@@ -90,6 +99,9 @@ export default function Chatscreen() {
   const openChat = async (user: User) => {
     setSelectedUser(user);
     setTab("conversations");
+    setConversations((prev) =>
+      prev.map((c) => (c._id === user._id ? { ...c, unreadCount: 0 } : c))
+    );
     try {
       const res = await fetch(`/api/messages/${user._id}`, { credentials: "include" });
       const data = await res.json();
@@ -236,9 +248,16 @@ export default function Chatscreen() {
                       }`}>{conv.name}</p>
                       <p className="text-zinc-500 text-xs truncate">{conv.email}</p>
                     </div>
-                    {onlineUsers.includes(conv._id) && (
-                      <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
-                    )}
+                    <div className="flex items-center gap-2 shrink-0">
+                      {conv.unreadCount && conv.unreadCount > 0 ? (
+                        <span className="bg-blue-600 text-white text-[10px] font-bold rounded-full min-w-[18px] h-[18px] flex items-center justify-center px-1">
+                          {conv.unreadCount > 99 ? "99+" : conv.unreadCount}
+                        </span>
+                      ) : null}
+                      {onlineUsers.includes(conv._id) && (
+                        <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                      )}
+                    </div>
                   </button>
                 ))
               : users.map((u) => (
