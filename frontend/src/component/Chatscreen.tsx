@@ -74,8 +74,13 @@ export default function Chatscreen() {
         );
       }
     });
+    sock.on("messagesRead", ({ readBy }: { readBy: string }) => {
+      setConversations((prev) =>
+        prev.map((c) => (c._id === readBy ? { ...c, unreadCount: 0 } : c))
+      );
+    });
 
-    return () => { sock.off("getOnlineUsers", onOnlineUsers); sock.off("newMessage"); };
+    return () => { sock.off("getOnlineUsers", onOnlineUsers); sock.off("newMessage"); sock.off("messagesRead"); };
   }, [me, selectedUser]);
 
   useEffect(() => {

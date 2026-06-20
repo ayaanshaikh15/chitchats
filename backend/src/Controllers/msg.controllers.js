@@ -70,6 +70,11 @@ export const getMessage = async (req, res) => {
       { $set: { read: true } }
     );
 
+    const senderSocketId = getUserSocketId(userToChatId);
+    if (senderSocketId) {
+      io.to(senderSocketId).emit("messagesRead", { readBy: myId });
+    }
+
     const messages = await Message.find({
       $or: [
         { senderId: myId, receiverId: userToChatId },
