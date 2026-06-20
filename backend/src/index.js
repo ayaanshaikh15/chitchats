@@ -20,7 +20,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 const PORT = process.env.PORT;
-const FRONTEND_URL=(process.env.FRONTEND_URL || '').replace(/\/$/,'');
+const FRONTEND_URL=(process.env.FRONTEND_URL)
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
 if (FRONTEND_URL) {
   app.use(cors({origin: FRONTEND_URL, credentials: true}));

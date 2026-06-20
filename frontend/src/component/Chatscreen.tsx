@@ -83,6 +83,9 @@ export default function Chatscreen() {
           (msg.senderId === me.id && msg.receiverId === selectedUserId))
       ) {
         setMessages((prev) => [...prev, msg]);
+        if (msg.receiverId === me.id) {
+          fetch(`/api/messages/read/${msg.senderId}`, { method: "PUT", credentials: "include" }).catch(() => {});
+        }
       } else {
         fetch("/api/messages/conversation", { credentials: "include" })
           .then((r) => r.json())

@@ -90,6 +90,28 @@ export const getMessage = async (req, res) => {
     });
   }
 }
+export const markAsRead = async (req, res) => {
+  try {
+    const { id: senderId } = req.params;
+    const myId = req.user.userId;
+
+    await Message.updateMany(
+      { senderId, receiverId: myId, read: false },
+      { $set: { read: true } }
+    );
+
+    const senderSocketId = getUserSocketId(senderId);
+    if (senderSocketId) {
+      io.to(senderSocketId).emit("messagesRead", { readBy: myId });
+    }
+
+    res.status(200).json({ success: true });
+  } catch (error) {
+    console.error("Error marking messages as read:", error);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
 export const sendMessage = async (req, res) => {
     try{
   const {id:receiverId} = req.params;
