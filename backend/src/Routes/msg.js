@@ -5,8 +5,8 @@ import { upload } from '../Middleware/uploadfile.js';
 const router =express.Router();
 router.use(protect);
 router.get('/user',getUsers)
-router.get('/:id',getMessage);
 router.get("/conversation",getConversationsForSidebar);
+router.get('/:id',getMessage);
 router.post("/send/:id",upload.single("media"),sendMessage);
 
 export default router;

@@ -1,10 +1,11 @@
+import mongoose from "mongoose";
 import { hasImageKitConfig, uploadChatMedia } from "../lib/imagekit.js";
 import { getUserSocketId, io } from "../lib/socket.js";
 import Message from "../Models/messageModel.js";
 import User from '../Models/userModel.js'
 export const getUsers = async (req, res) => {
   try {
-    const loggedInUserId = req.user._id;
+    const loggedInUserId = req.user.userId;
 
     const users = await User.find({
       _id: { $ne: loggedInUserId },
@@ -20,33 +21,25 @@ export const getUsers = async (req, res) => {
 };
 export const getConversationsForSidebar = async (req, res) => {
     try{
-        const loggedInUserId = req.user._id;
+        const loggedInUserId = req.user.userId;
 
     const conversations = await Message.aggregate([
-      // 1. Keep only the messages I sent or received.
-      { $match: { $or: [{ senderId: loggedInUserId }, { receiverId: loggedInUserId }] } },
-      // 2. Collapse them into one row per chat partner, noting our latest message time.
+      { $match: { $or: [{ senderId: new mongoose.Types.ObjectId(loggedInUserId) }, { receiverId: new mongoose.Types.ObjectId(loggedInUserId) }] } },
       {
         $group: {
-          // The partner is the other person on the message (not me).
-          _id: { $cond: [{ $eq: ["$senderId", loggedInUserId] }, "$receiverId", "$senderId"] },
+          _id: { $cond: [{ $eq: ["$senderId", new mongoose.Types.ObjectId(loggedInUserId)] }, "$receiverId", "$senderId"] },
           lastMessageAt: { $max: "$createdAt" },
         },
       },
-      // 3. Put the most recent conversation at the top.
       { $sort: { lastMessageAt: -1 } },
-      // 4. Look up each partner's user profile (comes back as an array).
       { $lookup: { from: "users", localField: "_id", foreignField: "_id", as: "user" } },
-      // 5. Pull that profile out of the array and make it the document.
-      // { $replaceRoot: { newRoot: { $first: "$user" } } },
-      { 
-  $replaceRoot: { 
-    newRoot: { 
-      $mergeObjects: [{ $first: "$user" }, { lastMessageAt: "$lastMessageAt" }] 
-    } 
-  } 
-},
-      // 6. Hide the private password field from the result.
+      {
+        $replaceRoot: {
+          newRoot: {
+            $mergeObjects: [{ $first: "$user" }, { lastMessageAt: "$lastMessageAt" }],
+          },
+        },
+      },
       { $project: { password: 0 } },
     ]);
 
@@ -61,7 +54,7 @@ export const getConversationsForSidebar = async (req, res) => {
 export const getMessage = async (req, res) => {
     try{
       const { id: userToChatId } = req.params;
-    const myId = req.user._id;
+    const myId = req.user.userId;
 
     const messages = await Message.find({
       $or: [
@@ -82,7 +75,7 @@ export const sendMessage = async (req, res) => {
     try{
   const {id:receiverId} = req.params;
   const {text} = req.body;
-  const senderId = req.user._id;
+  const senderId = req.user.userId;
   let ImageUrl;
   let VideoUrl;
   if(req.file)
