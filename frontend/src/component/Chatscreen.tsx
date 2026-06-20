@@ -194,7 +194,7 @@ export default function Chatscreen() {
               <button
                 onClick={() => setTab("conversations")}
                 className={`flex-1 py-1.5 text-sm font-medium rounded-md transition cursor-pointer ${
-                  tab === "conversations" ? "bg-blue-600 text-white" : "text-zinc-400 hover:text-white"
+                  tab === "conversations" ? "bg-blue-600 text-white" : "text-zinc-400 hover:text-zinc-100"
                 }`}
               >
                 Chats
@@ -202,7 +202,7 @@ export default function Chatscreen() {
               <button
                 onClick={() => setTab("users")}
                 className={`flex-1 py-1.5 text-sm font-medium rounded-md transition cursor-pointer ${
-                  tab === "users" ? "bg-blue-600 text-white" : "text-zinc-400 hover:text-white"
+                  tab === "users" ? "bg-blue-600 text-white" : "text-zinc-400 hover:text-zinc-100"
                 }`}
               >
                 Users
@@ -231,7 +231,7 @@ export default function Chatscreen() {
                     <div className="min-w-0 flex-1">
                       <p className={`text-sm font-medium truncate ${
                         selectedUser?._id === conv._id
-                          ? "text-white"
+                          ? "text-zinc-100"
                           : "text-zinc-100"
                       }`}>{conv.name}</p>
                       <p className="text-zinc-500 text-xs truncate">{conv.email}</p>
@@ -278,7 +278,7 @@ export default function Chatscreen() {
             <>
               {/* Chat header */}
               <div className="flex items-center gap-3 px-4 md:px-5 py-3 border-b border-zinc-800">
-                <button onClick={() => setSelectedUser(null)} className="md:hidden text-zinc-400 hover:text-white transition cursor-pointer">
+                <button onClick={() => setSelectedUser(null)} className="md:hidden text-zinc-400 hover:text-zinc-100 transition cursor-pointer">
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                   </svg>

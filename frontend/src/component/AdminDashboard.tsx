@@ -99,7 +99,7 @@ export default function AdminDashboard() {
           <div className="flex items-center gap-3">
             <button
               onClick={() => navigate("/")}
-              className="text-zinc-400 hover:text-white transition cursor-pointer p-2 -ml-2"
+              className="text-zinc-400 hover:text-zinc-100 transition cursor-pointer p-2 -ml-2"
             >
               <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
@@ -335,7 +335,7 @@ export default function AdminDashboard() {
           <div className="flex gap-3 mt-5">
             <button
               onClick={() => setConfirmTarget(null)}
-              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl py-2.5 text-sm font-medium transition cursor-pointer"
+              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 rounded-xl py-2.5 text-sm font-medium transition cursor-pointer"
             >
               Cancel
             </button>

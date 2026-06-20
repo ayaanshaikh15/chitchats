@@ -66,7 +66,7 @@ export default function ProfileScreen() {
           <h2 className="text-lg font-semibold text-zinc-100">Edit Profile</h2>
           <button
             onClick={() => navigate("/")}
-            className="text-zinc-400 hover:text-white transition cursor-pointer"
+            className="text-zinc-400 hover:text-zinc-100 transition cursor-pointer"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -154,7 +154,7 @@ export default function ProfileScreen() {
             <button
               type="button"
               onClick={() => navigate("/")}
-              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl py-2.5 text-sm font-medium transition cursor-pointer"
+              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 rounded-xl py-2.5 text-sm font-medium transition cursor-pointer"
             >
               Cancel
             </button>
@@ -188,7 +188,7 @@ export default function ProfileScreen() {
           <div className="flex gap-3 mt-5">
             <button
               onClick={() => setShowLogoutConfirm(false)}
-              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl py-2.5 text-sm font-medium transition cursor-pointer"
+              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 rounded-xl py-2.5 text-sm font-medium transition cursor-pointer"
             >
               Cancel
             </button>
@@ -221,7 +221,7 @@ export default function ProfileScreen() {
           <div className="flex gap-3 mt-5">
             <button
               onClick={() => setShowConfirm(false)}
-              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-white rounded-xl py-2.5 text-sm font-medium transition cursor-pointer"
+              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 rounded-xl py-2.5 text-sm font-medium transition cursor-pointer"
             >
               Cancel
             </button>
