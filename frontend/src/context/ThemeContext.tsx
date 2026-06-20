@@ -9,10 +9,11 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | null>(null);
 
-export function ThemeProvider({ children }: { children: ReactNode }) {
-  const getSystemTheme = (): Theme =>
-    window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+function getSystemTheme(): Theme {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
 
+export function ThemeProvider({ children }: { children: ReactNode }) {
   const [theme, setTheme] = useState<Theme>(() => {
     const saved = localStorage.getItem("theme");
     return (saved === "dark" || saved === "light") ? saved : getSystemTheme();
@@ -22,18 +23,6 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     localStorage.setItem("theme", theme);
     document.documentElement.setAttribute("data-theme", theme);
   }, [theme]);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(prefers-color-scheme: dark)");
-    const handler = () => {
-      const saved = localStorage.getItem("theme");
-      if (saved !== "dark" && saved !== "light") {
-        setTheme(mq.matches ? "dark" : "light");
-      }
-    };
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
 
   const toggleTheme = () => setTheme((t) => (t === "dark" ? "light" : "dark"));
 

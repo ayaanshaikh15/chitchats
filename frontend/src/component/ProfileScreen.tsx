@@ -58,11 +58,11 @@ export default function ProfileScreen() {
 
   return (
     <>
-    <div className="min-h-screen bg-black theme-aware flex items-center justify-center p-4">
-      <div className="w-full max-w-lg bg-zinc-900 theme-aware rounded-2xl border border-zinc-800 shadow-2xl shadow-blue-500/5 p-6">
+    <div className="min-h-screen bg-black flex items-center justify-center p-4">
+      <div className="w-full max-w-lg bg-zinc-900 rounded-2xl border border-zinc-800 shadow-2xl shadow-blue-500/5 p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-lg font-semibold text-white">Edit Profile</h2>
+          <h2 className="text-lg font-semibold text-zinc-100">Edit Profile</h2>
           <button
             onClick={() => navigate("/")}
             className="text-zinc-400 hover:text-white transition cursor-pointer"
@@ -105,7 +105,7 @@ export default function ProfileScreen() {
             <input
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="w-full bg-zinc-800 text-white rounded-xl px-4 py-2.5 text-sm placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full bg-zinc-800 text-zinc-100 rounded-xl px-4 py-2.5 text-sm placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               placeholder="Your name"
             />
           </div>
@@ -116,7 +116,7 @@ export default function ProfileScreen() {
             <input
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="w-full bg-zinc-800 text-white rounded-xl px-4 py-2.5 text-sm placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full bg-zinc-800 text-zinc-100 rounded-xl px-4 py-2.5 text-sm placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               placeholder="your@email.com"
             />
           </div>
@@ -130,7 +130,7 @@ export default function ProfileScreen() {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="w-full bg-zinc-800 text-white rounded-xl px-4 py-2.5 text-sm placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+              className="w-full bg-zinc-800 text-zinc-100 rounded-xl px-4 py-2.5 text-sm placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
               placeholder="New password"
             />
           </div>
@@ -162,7 +162,7 @@ export default function ProfileScreen() {
     {/* Save confirmation modal */}
     {showConfirm && (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-        <div className="bg-zinc-900 theme-aware border border-zinc-800 rounded-2xl p-6 w-full max-w-sm mx-4 shadow-2xl">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full max-w-sm mx-4 shadow-2xl">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
               <svg className="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -170,7 +170,7 @@ export default function ProfileScreen() {
               </svg>
             </div>
             <div>
-              <h3 className="text-white font-semibold">Save changes?</h3>
+              <h3 className="text-zinc-100 font-semibold">Save changes?</h3>
               <p className="text-zinc-400 text-sm">Are you sure you want to update your profile?</p>
             </div>
           </div>

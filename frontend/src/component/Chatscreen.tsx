@@ -152,14 +152,14 @@ export default function Chatscreen() {
 
   return (
     <>
-    <div className="min-h-screen bg-black theme-aware flex items-center justify-center p-4">
-      <div className="w-full max-w-5xl h-[85vh] bg-zinc-900 theme-aware rounded-2xl border border-zinc-800 shadow-2xl shadow-blue-500/5 flex overflow-hidden">
+    <div className="min-h-screen bg-black flex items-center justify-center p-4">
+      <div className="w-full max-w-5xl h-[85vh] bg-zinc-900 rounded-2xl border border-zinc-800 shadow-2xl shadow-blue-500/5 flex overflow-hidden">
         {/* Sidebar */}
         <div className="w-80 border-r border-zinc-800 flex flex-col shrink-0">
           {/* Sidebar header */}
           <div className="p-4 border-b border-zinc-800">
             <div className="flex items-center justify-between mb-3">
-              <h2 className="text-lg font-semibold text-white">Chats</h2>
+              <h2 className="text-lg font-semibold text-zinc-100">Chats</h2>
               <div className="flex items-center gap-2">
                 {me?.role === "admin" && (
                   <button onClick={() => navigate("/admin")} className="text-zinc-500 hover:text-yellow-400 transition cursor-pointer" title="Admin Dashboard">
@@ -259,7 +259,7 @@ export default function Chatscreen() {
                       )}
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="text-white text-sm font-medium truncate">{u.name}</p>
+                      <p className="text-zinc-100 text-sm font-medium truncate">{u.name}</p>
                       <p className="text-zinc-500 text-xs truncate">{u.email}</p>
                     </div>
                     {onlineUsers.includes(u._id) && (
@@ -290,7 +290,7 @@ export default function Chatscreen() {
                   )}
                 </div>
                 <div>
-                  <p className="text-white font-medium text-sm">{selectedUser.name}</p>
+                  <p className="text-zinc-100 font-medium text-sm">{selectedUser.name}</p>
                   <p className={`text-xs ${onlineUsers.includes(selectedUser._id) ? "text-emerald-400" : "text-zinc-500"}`}>
                     {onlineUsers.includes(selectedUser._id) ? "Online" : "Offline"}
                   </p>
@@ -367,7 +367,7 @@ export default function Chatscreen() {
                     onKeyDown={handleKeyDown}
                     placeholder="Type a message..."
                     rows={1}
-                    className="flex-1 bg-zinc-800 text-white rounded-xl px-4 py-2.5 text-sm placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-blue-500 resize-none max-h-32"
+                    className="flex-1 bg-zinc-800 text-zinc-100 rounded-xl px-4 py-2.5 text-sm placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-blue-500 resize-none max-h-32"
                   />
                   <button
                     onClick={sendMessage}
@@ -403,7 +403,7 @@ export default function Chatscreen() {
     {/* Logout confirmation modal */}
     {showLogoutConfirm && (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-        <div className="bg-zinc-900 theme-aware border border-zinc-800 rounded-2xl p-6 w-full max-w-sm mx-4 shadow-2xl">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full max-w-sm mx-4 shadow-2xl">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-xl bg-red-500/10 flex items-center justify-center">
               <svg className="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -411,7 +411,7 @@ export default function Chatscreen() {
               </svg>
             </div>
             <div>
-              <h3 className="text-white font-semibold">Logout</h3>
+              <h3 className="text-zinc-100 font-semibold">Logout</h3>
               <p className="text-zinc-400 text-sm">Are you sure you want to logout?</p>
             </div>
           </div>

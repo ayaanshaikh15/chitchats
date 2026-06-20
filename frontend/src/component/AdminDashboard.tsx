@@ -92,7 +92,7 @@ export default function AdminDashboard() {
 
   return (
     <>
-    <div className="min-h-screen bg-black theme-aware">
+    <div className="min-h-screen bg-black">
       <div className="max-w-6xl mx-auto px-4 py-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
@@ -106,7 +106,7 @@ export default function AdminDashboard() {
               </svg>
             </button>
             <div>
-              <h1 className="text-xl font-bold text-white">Admin Dashboard</h1>
+              <h1 className="text-xl font-bold text-zinc-100">Admin Dashboard</h1>
               <p className="text-zinc-500 text-sm">Manage users and admins</p>
             </div>
           </div>
@@ -152,7 +152,7 @@ export default function AdminDashboard() {
               </div>
               <span className="text-zinc-400 text-sm font-medium">Total Users</span>
             </div>
-            <p className="text-3xl font-bold text-white">{stats?.total ?? 0}</p>
+            <p className="text-3xl font-bold text-zinc-100">{stats?.total ?? 0}</p>
           </div>
           <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-5">
             <div className="flex items-center gap-3 mb-2">
@@ -189,7 +189,7 @@ export default function AdminDashboard() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search users by name or email..."
-            className="w-full bg-zinc-900 border border-zinc-800 text-white rounded-xl pl-10 pr-4 py-3 text-sm placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition"
+            className="w-full bg-zinc-900 border border-zinc-800 text-zinc-100 rounded-xl pl-10 pr-4 py-3 text-sm placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-blue-500 transition"
           />
         </div>
 
@@ -218,7 +218,7 @@ export default function AdminDashboard() {
                             <span className="text-zinc-400 text-xs font-medium">{u.name[0]}</span>
                           )}
                         </div>
-                        <span className="text-white text-sm font-medium truncate max-w-[180px]">{u.name}</span>
+                        <span className="text-zinc-100 text-sm font-medium truncate max-w-[180px]">{u.name}</span>
                       </div>
                     </td>
                     <td className="px-5 py-3.5 text-zinc-400 text-sm">{u.email}</td>
@@ -280,7 +280,7 @@ export default function AdminDashboard() {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-2">
-                  <p className="text-white text-sm font-medium truncate">{u.name}</p>
+                  <p className="text-zinc-100 text-sm font-medium truncate">{u.name}</p>
                   <span className={`w-2 h-2 rounded-full shrink-0 ${u.isOnline ? "bg-emerald-500" : "bg-zinc-500"}`} />
                 </div>
                 <p className="text-zinc-500 text-xs truncate">{u.email}</p>
@@ -320,7 +320,7 @@ export default function AdminDashboard() {
     {/* Confirm make admin modal */}
     {confirmTarget && (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm">
-        <div className="bg-zinc-900 theme-aware border border-zinc-800 rounded-2xl p-6 w-full max-w-sm mx-4 shadow-2xl">
+        <div className="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 w-full max-w-sm mx-4 shadow-2xl">
           <div className="flex items-center gap-3 mb-3">
             <div className="w-10 h-10 rounded-xl bg-yellow-500/10 flex items-center justify-center">
               <svg className="w-5 h-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -328,7 +328,7 @@ export default function AdminDashboard() {
               </svg>
             </div>
             <div>
-              <h3 className="text-white font-semibold">Make Admin</h3>
+              <h3 className="text-zinc-100 font-semibold">Make Admin</h3>
               <p className="text-zinc-400 text-sm">Are you sure you want to promote this user to admin?</p>
             </div>
           </div>
