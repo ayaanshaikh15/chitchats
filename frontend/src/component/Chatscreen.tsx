@@ -62,6 +62,7 @@ export default function Chatscreen() {
       setOnlineUsers(ids);
     };
     sock.on("getOnlineUsers", onOnlineUsers);
+    sock.emit("requestOnlineUsers");
     sock.on("messagesRead", ({ readBy }: { readBy: string }) => {
       setConversations((prev) =>
         prev.map((c) => (c._id === readBy ? { ...c, unreadCount: 0 } : c))
