@@ -144,7 +144,7 @@ export default function ProfileScreen() {
             <button
               type="button"
               onClick={() => setShowLogoutConfirm(true)}
-              className="bg-zinc-800 hover:bg-red-600 text-zinc-400 hover:text-white rounded-xl p-2.5 transition cursor-pointer"
+              className="bg-zinc-800 hover:bg-red-600 text-zinc-400 hover:text-white rounded-xl p-2.5 transition cursor-pointer border border-zinc-700"
               title="Logout"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -154,7 +154,7 @@ export default function ProfileScreen() {
             <button
               type="button"
               onClick={() => navigate("/")}
-              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 rounded-xl py-2.5 text-sm font-medium transition cursor-pointer"
+              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 rounded-xl py-2.5 text-sm font-medium transition cursor-pointer border border-zinc-700"
             >
               Cancel
             </button>
@@ -188,7 +188,7 @@ export default function ProfileScreen() {
           <div className="flex gap-3 mt-5">
             <button
               onClick={() => setShowLogoutConfirm(false)}
-              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 rounded-xl py-2.5 text-sm font-medium transition cursor-pointer"
+              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 rounded-xl py-2.5 text-sm font-medium transition cursor-pointer border border-zinc-700"
             >
               Cancel
             </button>
@@ -221,7 +221,7 @@ export default function ProfileScreen() {
           <div className="flex gap-3 mt-5">
             <button
               onClick={() => setShowConfirm(false)}
-              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 rounded-xl py-2.5 text-sm font-medium transition cursor-pointer"
+              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 rounded-xl py-2.5 text-sm font-medium transition cursor-pointer border border-zinc-700"
             >
               Cancel
             </button>

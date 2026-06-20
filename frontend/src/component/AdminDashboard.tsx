@@ -335,7 +335,7 @@ export default function AdminDashboard() {
           <div className="flex gap-3 mt-5">
             <button
               onClick={() => setConfirmTarget(null)}
-              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 rounded-xl py-2.5 text-sm font-medium transition cursor-pointer"
+              className="flex-1 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 rounded-xl py-2.5 text-sm font-medium transition cursor-pointer border border-zinc-700"
             >
               Cancel
             </button>
