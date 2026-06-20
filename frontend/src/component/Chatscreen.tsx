@@ -57,31 +57,36 @@ export default function Chatscreen() {
     setOnlineUsers(getOnlineUsersSnapshot());
     const onOnlineUsers = (ids: string[]) => setOnlineUsers(ids);
     sock.on("getOnlineUsers", onOnlineUsers);
-    sock.on("newMessage", (msg: Message) => {
-      if (
-        selectedUser &&
-        ((msg.senderId === selectedUser._id && msg.receiverId === me.id) ||
-          (msg.senderId === me.id && msg.receiverId === selectedUser._id))
-      ) {
-        setMessages((prev) => [...prev, msg]);
-      } else {
-        setConversations((prev) =>
-          prev.map((c) =>
-            c._id === msg.senderId || c._id === msg.receiverId
-              ? { ...c, unreadCount: (c.unreadCount || 0) + 1 }
-              : c
-          )
-        );
-      }
-    });
     sock.on("messagesRead", ({ readBy }: { readBy: string }) => {
       setConversations((prev) =>
         prev.map((c) => (c._id === readBy ? { ...c, unreadCount: 0 } : c))
       );
     });
 
-    return () => { sock.off("getOnlineUsers", onOnlineUsers); sock.off("newMessage"); sock.off("messagesRead"); };
-  }, [me, selectedUser]);
+    return () => { sock.off("getOnlineUsers", onOnlineUsers); sock.off("messagesRead"); };
+  }, [me]);
+
+  const selectedUserId = selectedUser?._id;
+  useEffect(() => {
+    if (!me) return;
+    const sock = getSocket(me.id);
+    const onNewMessage = (msg: Message) => {
+      if (
+        selectedUserId &&
+        ((msg.senderId === selectedUserId && msg.receiverId === me.id) ||
+          (msg.senderId === me.id && msg.receiverId === selectedUserId))
+      ) {
+        setMessages((prev) => [...prev, msg]);
+      } else {
+        fetch("/api/messages/conversation", { credentials: "include" })
+          .then((r) => r.json())
+          .then(setConversations)
+          .catch(() => {});
+      }
+    };
+    sock.on("newMessage", onNewMessage);
+    return () => { sock.off("newMessage", onNewMessage); };
+  }, [me, selectedUserId]);
 
   useEffect(() => {
     scrollToBottom();

@@ -122,10 +122,9 @@ export const sendMessage = async (req, res) => {
    await message.save();
    //socket io code 
    //show the msg to the user if the user in online or else just save it in db
-   const receiverSocketId = getUserSocketId(receiverId)
-   if(receiverId)
+    const receiverSocketId = getUserSocketId(receiverId)
+   if(receiverSocketId)
    {
-    //send msg to the provided receiver socket id
     io.to(receiverSocketId).emit("newMessage",message)
    }
      res.status(201).json(message);
