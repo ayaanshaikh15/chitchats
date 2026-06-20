@@ -60,13 +60,13 @@ export default function ProfileScreen() {
   return (
     <>
     <div className="min-h-screen bg-black flex items-center justify-center p-4">
-      <div className="w-full max-w-lg bg-zinc-900 rounded-2xl border border-zinc-800 shadow-2xl shadow-blue-500/5 p-6">
+      <div className="w-full max-w-lg bg-zinc-900 rounded-2xl border border-zinc-800 shadow-2xl shadow-blue-500/5 p-5 md:p-6">
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-lg font-semibold text-zinc-100">Edit Profile</h2>
           <button
             onClick={() => navigate("/")}
-            className="text-zinc-400 hover:text-zinc-100 transition cursor-pointer"
+            className="text-zinc-400 hover:text-zinc-100 transition cursor-pointer p-2 -mr-2"
           >
             <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -87,7 +87,7 @@ export default function ProfileScreen() {
             <button
               type="button"
               onClick={() => fileInputRef.current?.click()}
-              className="text-sm text-blue-400 hover:text-blue-300 transition cursor-pointer"
+              className="text-sm text-blue-400 hover:text-blue-300 transition cursor-pointer py-2"
             >
               Change photo
             </button>
@@ -144,7 +144,7 @@ export default function ProfileScreen() {
             <button
               type="button"
               onClick={() => setShowLogoutConfirm(true)}
-              className="bg-zinc-800 hover:bg-red-600 text-zinc-400 hover:text-white rounded-xl p-2.5 transition cursor-pointer border border-zinc-700"
+              className="bg-zinc-800 hover:bg-red-600 text-zinc-400 hover:text-white rounded-xl p-2.5 transition cursor-pointer border border-zinc-700 min-w-[44px] min-h-[44px] flex items-center justify-center"
               title="Logout"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

@@ -303,7 +303,7 @@ export default function AdminDashboard() {
                 <button
                   onClick={() => setConfirmTarget(u.id)}
                   disabled={promoting === u.id}
-                  className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 disabled:cursor-not-allowed text-white text-xs font-medium rounded-lg transition cursor-pointer shrink-0"
+                  className="w-full md:w-auto px-3 py-2.5 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 disabled:cursor-not-allowed text-white text-xs font-medium rounded-lg transition cursor-pointer shrink-0"
                 >
                   {promoting === u.id ? "..." : "Make Admin"}
                 </button>
