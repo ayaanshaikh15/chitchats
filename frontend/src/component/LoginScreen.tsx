@@ -35,9 +35,8 @@ export default function LoginScreen() {
         <div className="bg-zinc-900/80 backdrop-blur-xl rounded-2xl md:rounded-3xl p-6 md:p-8 border border-zinc-800 shadow-2xl shadow-blue-500/10">
           <div className="text-center mb-8">
             <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-700 rounded-2xl flex items-center justify-center mx-auto mb-5 shadow-lg shadow-blue-600/25">
-              <svg className="w-8 h-8 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 01-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 011-1c2 0 4-1.5 6-3 2 1.5 4 3 6 3a1 1 0 011 1v7z" />
-              </svg>
+              <img className="w-8 h-8 " src="./favicon.png" />
+                
             </div>
             <h1 className="text-2xl font-bold text-zinc-100">Welcome back</h1>
             <p className="text-zinc-400 mt-1.5">Sign in to your account</p>
@@ -87,7 +86,7 @@ export default function LoginScreen() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-zinc-300 transition cursor-pointer"
+                  className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-zinc-500 hover:text-zinc-300 transition cursor-pointer"
                   tabIndex={-1}
                 >
                   {showPassword ? (

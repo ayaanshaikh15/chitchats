@@ -194,7 +194,7 @@ export default function Chatscreen() {
              
               <div className="flex items-center gap-2">
                 {me?.role === "admin" && (
-                  <button onClick={() => navigate("/admin")} className="text-zinc-500 hover:text-yellow-400 transition cursor-pointer" title="Admin Dashboard">
+                  <button onClick={() => navigate("/admin")} className="text-zinc-500 hover:text-yellow-400 transition cursor-pointer p-2" title="Admin Dashboard">
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.431l-1.003.827c-.293.24-.438.613-.431.992a6.759 6.759 0 010 .255c-.007.378.138.75.43.99l1.005.828c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.941-1.11.941h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.431l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.99l-1.004-.828a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.281z" />
                       <circle cx="12" cy="10" r="2" />
@@ -202,7 +202,7 @@ export default function Chatscreen() {
                     </svg>
                   </button>
                 )}
-                <button onClick={toggleTheme} className="text-zinc-500 hover:text-yellow-400 transition cursor-pointer" title="Toggle theme">
+                <button onClick={toggleTheme} className="text-zinc-500 hover:text-yellow-400 transition cursor-pointer p-2" title="Toggle theme">
                   {theme === "dark" ? (
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                       <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
@@ -213,7 +213,7 @@ export default function Chatscreen() {
                     </svg>
                   )}
                 </button>
-                <button onClick={() => navigate("/profile")} className="text-zinc-500 hover:text-blue-400 transition cursor-pointer" title="Edit profile">
+                <button onClick={() => navigate("/profile")} className="text-zinc-500 hover:text-blue-400 transition cursor-pointer p-2" title="Edit profile">
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
@@ -316,7 +316,7 @@ export default function Chatscreen() {
             <>
               {/* Chat header */}
               <div className="flex items-center gap-3 px-4 md:px-5 py-3 border-b border-zinc-800">
-                <button onClick={() => setSelectedUser(null)} className="md:hidden text-zinc-400 hover:text-zinc-100 transition cursor-pointer">
+                <button onClick={() => setSelectedUser(null)} className="md:hidden p-2 -ml-2 text-zinc-400 hover:text-zinc-100 transition cursor-pointer">
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
                   </svg>
@@ -343,7 +343,7 @@ export default function Chatscreen() {
                   return (
                     <div key={msg._id} className={`flex ${isMine ? "justify-end" : "justify-start"}`}>
                       <div
-                        className={`max-w-[75%] rounded-2xl px-4 py-2 ${
+                        className={`max-w-[85%] md:max-w-[75%] rounded-2xl px-4 py-2 ${
                           isMine ? "bg-blue-600 text-white rounded-br-md" : "bg-zinc-800 text-zinc-200 rounded-bl-md"
                         }`}
                       >
@@ -386,7 +386,7 @@ export default function Chatscreen() {
                 <div className="flex items-center gap-3">
                   <button
                     onClick={() => fileInputRef.current?.click()}
-                    className="text-zinc-400 hover:text-blue-400 transition cursor-pointer"
+                    className="text-zinc-400 hover:text-blue-400 transition cursor-pointer p-2 -ml-2"
                     type="button"
                   >
                     <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -411,7 +411,7 @@ export default function Chatscreen() {
                   <button
                     onClick={sendMessage}
                     disabled={sending || (!text.trim() && !file)}
-                    className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 disabled:cursor-not-allowed text-white rounded-xl p-2.5 transition cursor-pointer"
+                    className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-600/50 disabled:cursor-not-allowed text-white rounded-xl p-3 md:p-2.5 transition cursor-pointer"
                   >
                     {sending ? (
                       <svg className="animate-spin w-5 h-5" fill="none" viewBox="0 0 24 24">
