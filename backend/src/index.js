@@ -22,7 +22,9 @@ app.use(cookieParser());
 const PORT = process.env.PORT;
 const FRONTEND_URL=(process.env.FRONTEND_URL || '').replace(/\/$/,'');
 dns.setServers(["1.1.1.1", "8.8.8.8"]);
-app.use(cors({origin: FRONTEND_URL, credentials: true}));
+if (FRONTEND_URL) {
+  app.use(cors({origin: FRONTEND_URL, credentials: true}));
+}
 app.use("/api/auth", authRouter);
 app.use("/api/messages",msgRouter);
 app.use("/api/admin",adminRouter);

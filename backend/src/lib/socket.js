@@ -7,7 +7,8 @@ const app = express();
 
 const server = http.createServer(app)
 const alloworigin = (process.env.FRONTEND_URL || '').replace(/\/$/,'')
-const io = new Server(server,{cors:{origin:alloworigin, credentials: true}})
+const corsOption = alloworigin ? {origin:alloworigin, credentials: true} : undefined
+const io = new Server(server,{cors:corsOption})
 const onlineUsers={}
 const getUserSocketId=(userId)=>{
   return onlineUsers[userId]
