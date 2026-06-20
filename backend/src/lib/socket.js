@@ -11,7 +11,7 @@ const corsOption = alloworigin ? {origin:alloworigin, credentials: true} : undef
 const io = new Server(server,{cors:corsOption})
 const onlineUsers={}
 const disconnectTimeouts={}
-const GRACE_PERIOD=5000
+const GRACE_PERIOD=2000
 const getUserSocketId=(userId)=>{
   return onlineUsers[userId]
 }
