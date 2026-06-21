@@ -41,6 +41,7 @@ export default function Chatscreen() {
   const [filePreview, setFilePreview] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
   const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const socketRef = useRef<Socket | null>(null);
@@ -223,7 +224,7 @@ export default function Chatscreen() {
             {/* Toggle buttons */}
             <div className="flex bg-zinc-800 rounded-lg p-1">
               <button
-                onClick={() => setTab("conversations")}
+                onClick={() => { setTab("conversations"); setSearchQuery(""); }}
                 className={`flex-1 py-1.5 text-sm font-medium rounded-md transition cursor-pointer ${
                   tab === "conversations" ? "bg-blue-600 text-white" : "text-zinc-400 hover:text-zinc-100"
                 }`}
@@ -239,6 +240,20 @@ export default function Chatscreen() {
                 Users
               </button>
             </div>
+          </div>
+
+          {/* Search bar */}
+          <div className="px-4 py-2 border-b border-zinc-800">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => {
+                setSearchQuery(e.target.value);
+                if (tab === "conversations") setTab("users");
+              }}
+              placeholder="Search users..."
+              className="w-full bg-zinc-800 text-zinc-100 rounded-lg px-3 py-2 text-sm placeholder-zinc-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
+            />
           </div>
 
           {/* Sidebar list */}
@@ -279,7 +294,13 @@ export default function Chatscreen() {
                     </div>
                   </button>
                 ))
-              : users.map((u) => (
+              : users
+                  .filter(
+                    (u) =>
+                      u.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                      u.email.toLowerCase().includes(searchQuery.toLowerCase())
+                  )
+                  .map((u) => (
                   <button
                     key={u._id}
                     onClick={() => openChat(u)}
@@ -304,7 +325,14 @@ export default function Chatscreen() {
             {tab === "conversations" && conversations.length === 0 && (
               <p className="text-zinc-500 text-sm text-center mt-8">No conversations yet</p>
             )}
-            {tab === "users" && users.length === 0 && (
+            {tab === "users" && searchQuery && users.filter(
+              (u) =>
+                u.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                u.email.toLowerCase().includes(searchQuery.toLowerCase())
+            ).length === 0 && (
+              <p className="text-zinc-500 text-sm text-center mt-8">No users found matching "{searchQuery}"</p>
+            )}
+            {tab === "users" && !searchQuery && users.length === 0 && (
               <p className="text-zinc-500 text-sm text-center mt-8">No other users found</p>
             )}
           </div>
