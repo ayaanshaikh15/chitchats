@@ -71,7 +71,7 @@ export default function SignupScreen() {
               {error}
             </div>
           )}
-
+ 
           <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="block text-sm font-medium text-zinc-300 mb-1.5">Name</label>
