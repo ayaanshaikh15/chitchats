@@ -4,7 +4,7 @@ import https from "node:https"
 
 const job = new CronJob('*/14 * * * *', async () => {
     
-   const base = procress.env.FRONTEND_URL
+   const base = process.env.FRONTEND_URL
 
    if(!base) return
    const url = new URL("/",base).href;
